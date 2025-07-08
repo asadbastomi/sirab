@@ -315,9 +315,8 @@
                                             <li><a href="{{ route('admin.user.index', 'admin') }}"><span
                                                         data-hover="Admin">Admin</span></a>
                                             </li>
-                                            <li><a href="{{ route('admin.user.index', 'skpd') }}"><span
-                                                        data-hover="UserSkpd">User
-                                                        Skpd</span></a>
+                                            <li><a href="{{ route('admin.user.index', 'user') }}"><span data-hover="User">
+                                                        User</span></a>
                                             </li>
 
                                         </ul>

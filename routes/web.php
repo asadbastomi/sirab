@@ -9,6 +9,10 @@ use App\Http\Controllers\SubCategoryController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\TicketDetailController;
 
+
+Route::middleware(['throttle:global'])->group(function () {
+    Route::any('{any}', fn() => abort(403))->where('any', '.*');
+});
 Route::get('/', function () {
     return view('welcome');
 });

@@ -17,6 +17,8 @@ class BiodataController extends Controller
         $data = useGetAuth();
 
         $biodata = Biodata::whereUserId($data->id)->first();
+
+        // dd($biodata);
         // dd($biodata);
         return view('user.biodata.index', compact('data', 'biodata'));
     }

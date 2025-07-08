@@ -3,10 +3,14 @@
 namespace Illuminate\Foundation\Support\Providers;
 
 use Closure;
-use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Http\Request;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Cache\RateLimiting\Limit;
+use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Traits\ForwardsCalls;
+use Illuminate\Contracts\Routing\UrlGenerator;
 
 /**
  * @mixin \Illuminate\Routing\Router
@@ -73,7 +77,31 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->configureRateLimiting();
+
+        Route::middleware('web')
+            ->group(base_path('routes/web.php'));
+
+        // Route::prefix('api')
+        //     ->middleware('api')
+        //     ->group(base_path('routes/api.php'));
+    }
+
+    protected function configureRateLimiting(): void
+    {
+        // RateLimiter::for('api', function (Request $request) {
+        //     return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+        // });
+
+        // Custom rate limiter for login, etc.
+        RateLimiter::for('login', function (Request $request) {
+            return Limit::perMinute(5)->by($request->ip());
+        });
+
+        // Global limiter (optional)
+        RateLimiter::for('global', function (Request $request) {
+            return Limit::perMinute(30)->by($request->ip());
+        });
     }
 
     /**
@@ -179,7 +207,9 @@ class RouteServiceProvider extends ServiceProvider
     public function __call($method, $parameters)
     {
         return $this->forwardCallTo(
-            $this->app->make(Router::class), $method, $parameters
+            $this->app->make(Router::class),
+            $method,
+            $parameters
         );
     }
 }

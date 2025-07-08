@@ -9,7 +9,7 @@ class UserController extends Controller
 {
     public function index($param = null)
     {
-        $data = User::whereRole('skpd')->get();
+        $data = User::whereRole('user')->get();
         if ($param) {
             $data = User::whereRole($param)->get();
         }
@@ -20,7 +20,7 @@ class UserController extends Controller
     public function create($params = null)
 
     {
-        $param = 'skpd';
+        $param = 'user';
         if ($params) {
             $param = $params;
         }

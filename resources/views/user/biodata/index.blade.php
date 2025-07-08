@@ -41,7 +41,7 @@
                             <li class="list-inline-item"><a href="javascript:void(0)" title="" data-toggle="tooltip"
                                     data-original-title="@skypename"><i class="fa fa-skype"></i></a></li>
                         </ul> --}}
-                        <p class="card-text">{{ $biodata->alamatTinggal }}</p>
+                        <p class="card-text">{{ isset($biodata) ? $biodata->alamatTinggal : '-' }}</p>
 
                         {{-- <div class="row">
                             <div class="col-4">
@@ -62,7 +62,8 @@
                         <li class="list-group-item">{{ $data->email }}</li>
                         <li class="list-group-item">{{ $data->phoneNumber }}</li>
                         <li class="list-group-item">
-                            {{ $biodata->tempatLahir }}, {{ useCarbon($biodata->tanggalLahir, 'd F Y') }}</li>
+                            {{ isset($biodata) ? $biodata->tempatLahir : '-' }},
+                            {{ isset($biodata) ? useCarbon($biodata->tanggalLahir, 'd F Y') : '-' }}</li>
                     </ul>
                     <div class="card-body">
                         <a href="javascript:void(0);" class="card-link">View More</a>

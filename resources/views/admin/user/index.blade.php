@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <a class="btn btn-primary mb-15" href="{{ route('admin.user.create', $param ? $param : 'skpd') }}">
+                        <a class="btn btn-primary mb-15" href="{{ route('admin.user.create', $param ? $param : 'user') }}">
                             <i class="icon wb-plus" aria-hidden="true"></i> Tambah Data
                         </a>
                         <div class="table-responsive">
@@ -17,10 +17,11 @@
                                 <thead>
                                     <tr>
                                         <th>No</th>
+                                        <th>NIK</th>
                                         <th>Nama</th>
                                         <th>Email</th>
                                         <th>Nomor Telepon</th>
-                                        <th>Role</th>
+                                        <th>Status</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -28,10 +29,11 @@
                                     @forelse ($data as $d)
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $d->nik ? $d->nik : '-' }}</td>
                                             <td>{{ $d->name }}</td>
                                             <td>{{ $d->email }}</td>
-                                            <td>{{ $d->phoneNumber }}</td>
-                                            <td>{{ $d->role }}</td>
+                                            <td>{{ $d->phoneNumber ? $d->phoneNumber : '-' }}</td>
+                                            <td>{{ $d->status }}</td>
                                             <td class="actions">
                                                 <a href="{{ route('admin.user.edit', $d->id) }}"
                                                     class="btn btn-sm btn-icon on-default m-r-5 button-edit"
