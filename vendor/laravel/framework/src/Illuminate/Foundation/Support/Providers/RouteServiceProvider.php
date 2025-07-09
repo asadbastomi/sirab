@@ -95,12 +95,12 @@ class RouteServiceProvider extends ServiceProvider
 
         // Custom rate limiter for login, etc.
         RateLimiter::for('login', function (Request $request) {
-            return Limit::perMinute(5)->by($request->ip());
+            return Limit::perMinute(5)->by($request->header('x-forwarded-for') ?? $request->ip());
         });
 
         // Global limiter (optional)
         RateLimiter::for('global', function (Request $request) {
-            return Limit::perMinute(30)->by($request->ip());
+            return Limit::perMinute(30)->by($request->header('x-forwarded-for') ?? $request->ip());
         });
     }
 
