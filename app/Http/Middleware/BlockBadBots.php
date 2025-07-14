@@ -42,6 +42,12 @@ class BlockBadBots
             }
         }
 
+        if (str_contains($userAgent, 'Googlebot')) {
+            if (!str_contains($request->ip(), '66.249.')) {
+                abort(403, 'Fake Googlebot blocked');
+            }
+        }
+
         return $next($request);
     }
 }
