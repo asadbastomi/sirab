@@ -14,20 +14,23 @@ events {
   worker_connections  4096;  # Default: 1024
 }
 http {
-    include    $!{nginx}/conf/mime.types;
-    index    index.html index.htm index.php;
-    default_type application/octet-stream;
+    include       $!{nginx}/conf/mime.types;
+    default_type  application/octet-stream;
+    index         index.html index.htm index.php;
 
-    # ⛔️ Tambahkan rate limit zone
+    # ✅ Rate limiting global: max 30 req/min per IP, burst 10
     limit_req_zone $binary_remote_addr zone=global_limit:10m rate=30r/m;
+    limit_req_status 429;
 
-    log_format   main '$remote_addr - $remote_user [$time_local]  $status '
-        '"$request" $body_bytes_sent "$http_referer" '
-        '"$http_user_agent" "$http_x_forwarded_for"';
-    access_log /dev/stdout;
-    error_log /dev/stdout;
-    sendfile     on;
-    tcp_nopush   on;
+    log_format main '$remote_addr - $remote_user [$time_local] $status '
+                    '"$request" $body_bytes_sent "$http_referer" '
+                    '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log /dev/stdout main;
+    error_log  /dev/stdout;
+
+    sendfile        on;
+    tcp_nopush      on;
     server_names_hash_bucket_size 128;
 
     server {
@@ -38,20 +41,25 @@ http {
         $if(NIXPACKS_PHP_ROOT_DIR) (
             root ${NIXPACKS_PHP_ROOT_DIR};
         ) else (
-            root /app;
+            root /app/public;
         )
+
+        index index.php;
+        charset utf-8;
+        client_max_body_size 6M;
 
         add_header X-Frame-Options "SAMEORIGIN";
         add_header X-Content-Type-Options "nosniff";
-        client_max_body_size 6M;
 
-        index index.php;
+        # ✅ Skip rate limiting for static assets (fonts, css, js, images, icons)
+        location ~* \.(?:css|js|woff2?|ttf|eot|svg|jpg|jpeg|png|gif|ico)$ {
+            access_log off;
+            expires 30d;
+        }
 
-        charset utf-8;
-
+        # ✅ Laravel main route with rate limit
         $if(IS_LARAVEL) (
             location / {
-                # ✅ Rate limit semua request di root
                 limit_req zone=global_limit burst=10 nodelay;
                 try_files $uri $uri/ /index.php?$query_string;
             }
