@@ -17,6 +17,7 @@ class BlockBadBots
     {
         $badUserAgents = [
             // Known Bad Bots
+            'bingbot',
             'MJ12bot',
             'AhrefsBot',
             'SemrushBot',
@@ -45,6 +46,12 @@ class BlockBadBots
         if (str_contains($userAgent, 'Googlebot')) {
             if (!str_contains($request->ip(), '66.249.')) {
                 abort(403, 'Fake Googlebot blocked');
+            }
+        }
+
+        if (str_contains($userAgent, 'bingbot')) {
+            if (!str_contains($request->ip(), '40.77.')) {
+                abort(403, 'Fake Bingbot blocked');
             }
         }
 

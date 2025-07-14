@@ -38,8 +38,8 @@ http {
         listen [::]:${PORT};
         server_name localhost;
 
-           # ✅ Blokir bot jahat berdasarkan User-Agent
-    if ($http_user_agent ~* (MJ12bot|AhrefsBot|SemrushBot|Mozlila|Moblie|Anon|sqlmap|python-requests|Googlebot)) {
+     # ✅ Blokir User-Agent mencurigakan termasuk bingbot palsu
+    if ($http_user_agent ~* (bingbot|Googlebot|MJ12bot|AhrefsBot|SemrushBot|Mozlila|Moblie|Anon|sqlmap|python-requests)) {
         return 403;
     }
 
