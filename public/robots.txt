@@ -1,11 +1,61 @@
 User-agent: *
+# ❌ Blokir konten berbahaya / judi / spam / file eksploit
 Disallow: /xmlrpc.php
 Disallow: /wp-login.php
-Disallow: /slot
-Disallow: /apk
-Disallow: /jackpot
-Disallow: /casino
-Disallow: /mahjong
-Disallow: /pgsoft
-Disallow: /wp-content
-Disallow: /wp-admin
+Disallow: /wp-admin/
+Disallow: /wp-json
+Disallow: /wp-content/
+Disallow: /wp-includes/
+Disallow: /ALFA_DATA/
+Disallow: /alfacgiapi/
+Disallow: /filemanager/
+Disallow: /sftp-config.json
+Disallow: /.well-known/traffic-advice
+
+# ❌ Blokir URL spam judi populer
+Disallow: /RAJA88
+Disallow: /SHIO4D
+Disallow: /SYAIR
+Disallow: /MAXWIN
+Disallow: /PGSOFT
+Disallow: /PLAYSTAR
+Disallow: /BONANZA
+Disallow: /INDO-XX1
+Disallow: /DEMO
+Disallow: /DEPO
+Disallow: /RTP
+Disallow: /LOGIN
+Disallow: /KODE-SYAIR
+Disallow: /LINK-ALTERNATIF
+Disallow: /CRYPTO
+Disallow: /BRI4D
+Disallow: /CALLANON
+Disallow: /GETPASSWORDPOLICY
+
+# ✅ Allow indexing halaman valid
+Allow: /
+
+# Optional: Block known bad bots
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: DotBot
+Disallow: /
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: PetalBot
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /

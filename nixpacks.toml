@@ -38,13 +38,28 @@ http {
         listen [::]:${PORT};
         server_name .banjarmasinkota.go.id localhost;
 
-        # ✅ Block suspicious user-agents
-        if ($http_user_agent ~* (bingbot|mj12bot|ahrefsbot|semrushbot|sqlmap|nikto|nmap|python-requests|curl|wget|scan|masscan|moblie|anon|mozlila|perplexitybot|chrome\sprivacy\spreserving\sprefetch\sproxy|nexus\s5x|android\s6\.0\.1|android\s16|privacy)) {
+        # ✅ Allow valid Googlebot only
+        set $is_googlebot 0;
+        if ($http_user_agent ~* "Googlebot") {
+            if ($http_user_agent ~* "compatible; Googlebot/2.1; \+http://www.google.com/bot.html") {
+                set $is_googlebot 1;
+            }
+        }
+
+        # ❌ Block bad bots / fake UA
+        if ($http_user_agent ~* (bingbot|ahrefsbot|mj12bot|semrushbot|mozlila|moblie|anon|nikto|nmap|masscan|sqlmap|python-requests|curl|wget|scan|privacy|perplexitybot|nexus\s5x|android\s6\.0\.1|android\s16)) {
             return 444;
         }
 
-        # ✅ Block known malicious URIs (brute-force and exploit)
-        if ($request_uri ~* /(xmlrpc\.php|wp-login\.php|wp-admin|wp-json|wp-content|wp-includes|sftp-config\.json|slot|apk|jackpot|winplay|tesla|demo-spirited|link-alternatif|shop-details|casino|bonanza|pgsoft|rtp|callanon|getPasswordPolicy|raja88|shio4d|\.well-known/traffic-advice)) {
+        # ❌ Drop traffic from Googlebot if suspicious URI
+        if ($is_googlebot = 1) {
+            if ($request_uri ~* (slot|demo|link-alternatif|rtp|syair|login|kode|maxwin|playstar|crypto|depo|bri4d|indo|shio|mahjong|filemanager|\.php)) {
+                return 444;
+            }
+        }
+
+        # ❌ Block malicious request URIs
+        if ($request_uri ~* (xmlrpc\.php|wp-login\.php|wp-json|wp-admin|wp-content|wp-includes|sftp-config\.json|filemanager|/rest_route=|/alfacgiapi/|/\.well-known/traffic-advice|slot|tesla|casino|jackpot|winplay|bonanza|pgsoft|getPasswordPolicy|dialog\.php|radio\.php)) {
             return 444;
         }
 
