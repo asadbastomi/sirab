@@ -93,12 +93,6 @@ http {
         location ~ /\.(?!well-known).* {
             deny all;
         }
-
-        location ~* ^/(.*)$ {
-            if ($request_method = POST) {
-                limit_req zone=global_limit burst=5 nodelay;
-            }
-        }
     }
 }'''
 "php-fpm.conf" = '''
