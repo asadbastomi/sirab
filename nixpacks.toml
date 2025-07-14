@@ -36,7 +36,7 @@ http {
     server {
         listen ${PORT};
         listen [::]:${PORT};
-        server_name localhost;
+        server_name .banjarmasinkota.go.id;
 
    # ❌ Blokir berdasarkan User-Agent
     if ($http_user_agent ~* (bingbot|googlebot|MJ12bot|AhrefsBot|SemrushBot|Mozlila|Moblie|Anon|sqlmap|nikto|python-requests|curl|nexus\s5x|android\s6\.0\.1|android\s16|chrome/13[0-9])) {
