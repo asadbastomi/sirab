@@ -39,7 +39,7 @@ http {
         server_name .banjarmasinkota.go.id localhost;
 
         # ✅ Block suspicious user-agents
-        if ($http_user_agent ~* (bingbot|googlebot|mj12bot|ahrefsbot|semrushbot|sqlmap|nikto|nmap|python-requests|curl|wget|scan|masscan|moblie|anon|mozlila|perplexitybot|chrome\sprivacy\spreserving\sprefetch\sproxy|nexus\s5x|android\s6\.0\.1|android\s16|privacy)) {
+        if ($http_user_agent ~* (bingbot|mj12bot|ahrefsbot|semrushbot|sqlmap|nikto|nmap|python-requests|curl|wget|scan|masscan|moblie|anon|mozlila|perplexitybot|chrome\sprivacy\spreserving\sprefetch\sproxy|nexus\s5x|android\s6\.0\.1|android\s16|privacy)) {
             return 403;
         }
 

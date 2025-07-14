@@ -25,8 +25,6 @@ class BlockBadBots
             'python-requests',
             'curl',
 
-            // Fake Googlebot
-            'Googlebot', // optional: use with DNS reverse check
 
             // Based on your logs
             'Mozlila', // typo of Mozilla
