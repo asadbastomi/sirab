@@ -39,12 +39,12 @@ http {
         server_name .banjarmasinkota.go.id localhost;
 
         # ✅ Block suspicious user-agents
-        if ($http_user_agent ~* (bingbot|googlebot|mj12bot|ahrefsbot|semrushbot|sqlmap|nikto|nmap|python-requests|curl|wget|scan|masscan|moblie|anon|mozlila)) {
+        if ($http_user_agent ~* (bingbot|googlebot|mj12bot|ahrefsbot|semrushbot|sqlmap|nikto|nmap|python-requests|curl|wget|scan|masscan|moblie|anon|mozlila|perplexitybot|chrome\sprivacy\spreserving\sprefetch\sproxy)) {
             return 403;
         }
 
         # ✅ Block known malicious URIs (brute-force and exploit)
-        if ($request_uri ~* /(xmlrpc\.php|wp-login\.php|wp-admin|wp-json|wp-content|wp-includes|sftp-config\.json|slot|apk|jackpot|winplay|tesla|demo-spirited|link-alternatif|shop-details|casino|bonanza|pgsoft|rtp|callanon|getPasswordPolicy)) {
+        if ($request_uri ~* /(xmlrpc\.php|wp-login\.php|wp-admin|wp-json|wp-content|wp-includes|sftp-config\.json|slot|apk|jackpot|winplay|tesla|demo-spirited|link-alternatif|shop-details|casino|bonanza|pgsoft|rtp|callanon|getPasswordPolicy|raja88|shio4d|\.well-known/traffic-advice)) {
             return 403;
         }
 
