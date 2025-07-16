@@ -33,32 +33,26 @@ http {
     tcp_nopush      on;
     server_names_hash_bucket_size 128;
 
+     map $http_user_agent $is_googlebot {
+        default                        0;
+        "~*Googlebot/2.1;\s\+http://www.google.com/bot.html" 1;
+    }
+
     server {
         listen ${PORT};
         listen [::]:${PORT};
         server_name .banjarmasinkota.go.id localhost;
 
-        # ✅ Allow valid Googlebot only
-        set $is_googlebot 0;
-        if ($http_user_agent ~* "Googlebot") {
-            if ($http_user_agent ~* "compatible; Googlebot/2.1; \+http://www.google.com/bot.html") {
-                set $is_googlebot 1;
-            }
-        }
-
-        # ❌ Block bad bots / fake UA
-        if ($http_user_agent ~* (bingbot|ahrefsbot|mj12bot|semrushbot|mozlila|moblie|anon|nikto|nmap|masscan|sqlmap|python-requests|curl|wget|scan|privacy|perplexitybot|nexus\s5x|android\s6\.0\.1|android\s16)) {
+       if ($http_user_agent ~* (bingbot|ahrefsbot|mj12bot|semrushbot|mozlila|moblie|anon|nikto|nmap|masscan|sqlmap|python-requests|curl|wget|scan|privacy|perplexitybot|nexus\s5x|android\s6\.0\.1|android\s16)) {
             return 444;
         }
 
-        # ❌ Drop traffic from Googlebot if suspicious URI
         if ($is_googlebot = 1) {
             if ($request_uri ~* (slot|demo|link-alternatif|rtp|syair|login|kode|maxwin|playstar|crypto|depo|bri4d|indo|shio|mahjong|filemanager|\.php)) {
                 return 444;
             }
         }
 
-        # ❌ Block malicious request URIs
         if ($request_uri ~* (xmlrpc\.php|wp-login\.php|wp-json|wp-admin|wp-content|wp-includes|sftp-config\.json|filemanager|/rest_route=|/alfacgiapi/|/\.well-known/traffic-advice|slot|tesla|casino|jackpot|winplay|bonanza|pgsoft|getPasswordPolicy|dialog\.php|radio\.php)) {
             return 444;
         }
