@@ -38,11 +38,11 @@ http {
         listen [::]:${PORT};
         server_name .banjarmasinkota.go.id localhost;
 
-        if ($http_user_agent ~* (bingbot|ahrefsbot|mj12bot|semrushbot|mozlila|moblie|anon|nikto|nmap|masscan|sqlmap|python-requests|curl|wget|scan|privacy|perplexitybot|nexus\s5x|android\s6\.0\.1|android\s16)) {
+        if ($http_user_agent ~* (Google-Site-Verification|bingbot|ahrefsbot|mj12bot|semrushbot|mozlila|moblie|anon|nikto|nmap|masscan|sqlmap|python-requests|curl|wget|scan|privacy|perplexitybot|nexus\s5x|android\s6\.0\.1|android\s16)) {
             return 444;
         }
 
-        if ($request_uri ~* (xmlrpc\.php|wp-login\.php|wp-json|wp-admin|wp-content|wp-includes|sftp-config\.json|filemanager|/rest_route=|/alfacgiapi/|/\.well-known/traffic-advice|slot|tesla|casino|jackpot|winplay|bonanza|pgsoft|getPasswordPolicy|dialog\.php|radio\.php)) {
+        if ($request_uri ~* (xmlrpc\.php|wp-login\.php|wp-json|wp-admin|wp-content|wp-includes|sftp-config\.json|filemanager|/rest_route=|/alfacgiapi/|/\.well-known/traffic-advice|slot|tesla|casino|jackpot|winplay|bonanza|pgsoft|getPasswordPolicy|dialog\.php|radio\.php|/google[0-9a-z]+\.html)) {
             return 444;
         }
 
