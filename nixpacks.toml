@@ -38,6 +38,12 @@ http {
         listen [::]:${PORT};
         server_name .banjarmasinkota.go.id localhost;
 
+        deny 66.249.0.0/16;    # Fake Googlebot cluster
+        deny 68.183.0.0/16;    # DigitalOcean / WP scanner
+        deny 52.167.0.0/16;    # Bingbot misbehaving (Azure)
+        deny 152.42.0.0/16;    # SQL injection, mobile abuse
+        deny 138.197.0.0/16;   # Known botnet hosting (DO, Vultr, etc.)
+
         if ($http_user_agent ~* (Google-Site-Verification|bingbot|ahrefsbot|mj12bot|semrushbot|mozlila|moblie|anon|nikto|nmap|masscan|sqlmap|python-requests|curl|wget|scan|privacy|perplexitybot|nexus\s5x|android\s6\.0\.1|android\s16)) {
             return 444;
         }
