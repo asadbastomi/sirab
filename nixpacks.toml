@@ -42,7 +42,7 @@ http {
             return 444;
         }
 
-        if ($request_uri ~* (xmlrpc\.php|wp-login\.php|wp-json|wp-admin|wp-content|wp-includes|sftp-config\.json|filemanager|/rest_route=|/alfacgiapi/|/\.well-known/traffic-advice|slot|tesla|casino|jackpot|winplay|bonanza|pgsoft|getPasswordPolicy|dialog\.php|radio\.php|/google[0-9a-z]+\.html)) {
+        if ($request_uri ~* (xmlrpc\.php|wp-login\.php|wp-json|wp-admin|wp-content|wp-includes|sftp-config\.json|filemanager|/rest_route=|/alfacgiapi/|/\.well-known/traffic-advice|slot|tesla|casino|jackpot|winplay|bonanza|pgsoft|getPasswordPolicy|dialog\.php|radio\.php|/google[0-9a-z]+\.html|judi|\.xml$)) {
             return 444;
         }
 

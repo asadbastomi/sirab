@@ -11,6 +11,8 @@ Disallow: /alfacgiapi/
 Disallow: /filemanager/
 Disallow: /sftp-config.json
 Disallow: /.well-known/traffic-advice
+Disallow: /DOUJINDESU-DAFTAR
+Disallow: /INDOPOOLS-WAP
 
 # ❌ Blokir URL spam judi populer
 Disallow: /RAJA88
@@ -31,9 +33,12 @@ Disallow: /CRYPTO
 Disallow: /BRI4D
 Disallow: /CALLANON
 Disallow: /GETPASSWORDPOLICY
+Disallow: /*.php$
+Disallow: /*.xml$
 
 # ✅ Allow indexing halaman valid
 Allow: /
+Allow: /index.php
 
 # Optional: Block known bad bots
 User-agent: MJ12bot
