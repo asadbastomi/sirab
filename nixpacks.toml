@@ -94,6 +94,10 @@ http {
             include $!{nginx}/conf/fastcgi.conf;
         }
 
+        location ~ (\.\.|%00) {
+            deny all;
+        }
+
         location ~ /\.(?!well-known).* {
             deny all;
         }
